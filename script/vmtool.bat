@@ -135,6 +135,8 @@ echo "%PACKER_BUILDER_TYPE%" | findstr /i "parallels" >nul
 if not errorlevel 1 goto parallels
 echo "%PACKER_BUILDER_TYPE%" | findstr /i "hyperv" >nul
 if not errorlevel 1 goto hyperv
+echo "%PACKER_BUILDER_TYPE%" | findstr /i "qemu" >nul
+if not errorlevel 1 goto qemu
 echo ==^> ERROR: Unknown PACKER_BUILDER_TYPE: "%PACKER_BUILDER_TYPE%"
 pushd .
 goto exit1
@@ -364,6 +366,11 @@ if "%GUEST_OS%" == "Windows Server 2016" goto :exit0
 ::  Add-WindowsPackage -Online -PackagePath $integrationServicesCabPath
 
 goto :exit0
+
+::::::::::::
+:qemu
+::::::::::::
+echo ==^> Detected virtualization platform: QEMU
 
 :exit0
 @ver>nul

@@ -135,7 +135,7 @@ ifdef PACKER_DEBUG
 	PACKER := PACKER_LOG=1 $(PACKER)
 else
 endif
-BUILDER_TYPES ?= vmware virtualbox parallels hyperv
+BUILDER_TYPES ?= vmware virtualbox parallels hyperv qemu
 ifeq ($(OS),Windows_NT)
 	VAGRANT_PROVIDER ?= vmware_workstation
 else
@@ -148,19 +148,23 @@ VMWARE_BOX_DIR := box/vmware
 VIRTUALBOX_BOX_DIR := box/virtualbox
 PARALLELS_BOX_DIR := box/parallels
 HYPERV_BOX_DIR := box/hyperv
+QEMU_BOX_DIR := box/libvirt
 VMWARE_BOX_FILES := $(foreach box_filename, $(BOX_FILENAMES), $(VMWARE_BOX_DIR)/$(box_filename))
 VIRTUALBOX_BOX_FILES := $(foreach box_filename, $(BOX_FILENAMES), $(VIRTUALBOX_BOX_DIR)/$(box_filename))
 PARALLELS_BOX_FILES := $(foreach box_filename, $(BOX_FILENAMES), $(PARALLELS_BOX_DIR)/$(box_filename))
 HYPERV_BOX_FILES := $(foreach box_filename, $(BOX_FILENAMES), $(HYPERV_BOX_DIR)/$(box_filename))
+QEMU_BOX_FILES := $(foreach box_filename, $(BOX_FILENAMES), $(QEMU_BOX_DIR)/$(box_filename))
 BOX_FILES := $(foreach builder, $(BUILDER_TYPES), $(foreach box_filename, $(BOX_FILENAMES), box/$(builder)/$(box_filename)))
 VMWARE_OUTPUT := output-vmware-iso
 VIRTUALBOX_OUTPUT := output-virtualbox-iso
 PARALLELS_OUTPUT := output-parallels-iso
 HYPERV_OUTPUT := output-hyperv-iso
+QEMU_OUTPUT := output-qemu
 VMWARE_BUILDER := vmware-iso
 VIRTUALBOX_BUILDER := virtualbox-iso
 PARALLELS_BUILDER := parallels-iso
 HYPERV_BUILDER := hyperv-iso
+QEMU_BUILDER := qemu
 CURRENT_DIR := $(shell pwd)
 UNAME_O := $(shell uname -o 2> /dev/null)
 UNAME_P := $(shell uname -p 2> /dev/null)
@@ -220,6 +224,8 @@ vmware/$(PREFIX)$(1): $(VMWARE_BOX_DIR)/$(PREFIX)$(1)$(BOX_SUFFIX)
 vmware/$(PREFIX)$(1)-cygwin: $(VMWARE_BOX_DIR)/$(PREFIX)$(1)-cygwin$(BOX_SUFFIX)
 
 vmware/$(PREFIX)$(1)-ssh: $(VMWARE_BOX_DIR)/$(PREFIX)$(1)-ssh$(BOX_SUFFIX)
+
+qemu/$(PREFIX)$(1): $(QEMU_BOX_DIR)/$(PREFIX)$(1)$(BOX_SUFFIX)
 
 virtualbox/$(PREFIX)$(1): $(VIRTUALBOX_BOX_DIR)/$(PREFIX)$(1)$(BOX_SUFFIX)
 
@@ -458,6 +464,11 @@ $(HYPERV_BOX_DIR)/$(PREFIX)$(1)$(BOX_SUFFIX): $(PREFIX)$(1).json
 	rm -rf $(HYPERV_OUTPUT)
 	mkdir -p $(HYPERV_BOX_DIR)
 	$(PACKER) build -on-error=$(ON_ERROR) -only=$(HYPERV_BUILDER) $(PACKER_VARS) -var "iso_url=$(2)" -var "iso_checksum=$(3)" $(PREFIX)$(1).json
+
+$(QEMU_BOX_DIR)/$(PREFIX)$(1)$(BOX_SUFFIX): $(PREFIX)$(1).json
+	rm -rf $(QEMU_OUTPUT)
+	mkdir -p $(QEMU_BOX_DIR)
+	$(PACKER) build -on-error=$(ON_ERROR) -only=$(QEMU_BUILDER) $(PACKER_VARS) -var "iso_url=$(2)" -var "iso_checksum=$(3)" $(PREFIX)$(1).json
 
 $(VIRTUALBOX_BOX_DIR)/$(PREFIX)$(1)-ssh$(BOX_SUFFIX): $(PREFIX)$(1)-ssh.json
 	rm -rf $(VIRTUALBOX_OUTPUT)

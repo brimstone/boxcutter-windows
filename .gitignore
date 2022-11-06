@@ -16,7 +16,6 @@ rspec_html_reports
 floppy/_packer_config_*.cmd
 
 *.*.json
-floppy/*.*.*
 script/*.*.*
 VERSION
 .env
