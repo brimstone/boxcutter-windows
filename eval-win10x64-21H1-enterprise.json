@@ -27,6 +27,7 @@
       "guest_os_type": "windows9-64",
       "headless": "{{ user `headless` }}",
       "tools_upload_flavor": "windows",
+      "tools_upload_path": "c:/windows/temp/vmware.iso",
       "version": "{{ user `hw_version` }}",
       "cpus": "{{ user `cpus` }}",
       "cores": 1,
@@ -161,13 +162,21 @@
     }
   ],
   "post-processors": [
-    {
-      "compression_level": 1,
-      "keep_input_artifact": false,
-      "output": "{{user `box_directory`}}{{.Provider}}/{{user `vm_name`}}{{user `vm_suffix`}}-{{user `cm`}}{{user `cm_version`}}-{{user `version`}}.box",
-      "type": "vagrant",
-      "vagrantfile_template": "{{template_dir}}/tpl/vagrantfile-eval-win10x64-enterprise.tpl"
-    }
+    [
+      {
+        "compression_level": 1,
+        "keep_input_artifact": false,
+        "output": "{{user `box_directory`}}{{.Provider}}/{{user `vm_name`}}{{user `vm_suffix`}}-{{user `cm`}}{{user `cm_version`}}-{{user `version`}}.box",
+        "type": "vagrant",
+        "vagrantfile_template": "{{template_dir}}/tpl/vagrantfile-eval-win10x64-enterprise.tpl"
+      },
+      {
+        "type": "vagrant-cloud",
+        "box_tag": "brimstone/{{user `vm_name`}}{{user `vm_suffix`}}-{{user `cm`}}{{user `cm_version`}}",
+        "access_token": "{{user `cloud_token`}}",
+        "version": "{{user `version`}}"
+      }
+    ]
   ],
   "provisioners": [
     {
@@ -180,6 +189,7 @@
       "scripts": [
         "{{template_dir}}/script/vagrant.bat",
         "{{template_dir}}/script/KB2999226.cmd",
+        "{{template_dir}}/script/slmgr.cmd",
         "{{template_dir}}/script/cmtool.bat",
         "{{template_dir}}/script/vmtool.bat",
         "{{template_dir}}/script/clean.bat",
@@ -191,7 +201,7 @@
     }
   ],
   "variables": {
-    "vm_name": "eval-win10x64-enterprise",
+    "vm_name": "eval-win10x64-21H1-enterprise",
     "vm_suffix": "",
     "cm": "chef",
     "cm_version": "",
@@ -206,6 +216,7 @@
     "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c Packer_Shutdown",
     "headless": "false",
     "update": "true",
-    "version": "0.1.0"
+    "version": "0.1.0",
+    "cloud_token": ""
   }
 }

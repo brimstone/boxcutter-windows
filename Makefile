@@ -19,8 +19,16 @@ EVAL_WIN81_X86_CHECKSUM ?= 4ddd0881779e89d197cb12c684adf47fd5d9e540
 EVAL_WIN8_X64 ?= http://care.dlservice.microsoft.com/dl/download/5/3/C/53C31ED0-886C-4F81-9A38-F58CE4CE71E8/9200.16384.WIN8_RTM.120725-1247_X64FRE_ENTERPRISE_EVAL_EN-US-HRM_CENA_X64FREE_EN-US_DV5.ISO
 EVAL_WIN8_X64_CHECKSUM ?= ae59e04462e4dc74e971d6e98d0cc1f2f3d63f1d
 
-EVAL_WIN10_X64 ?= https://software-download.microsoft.com/download/pr/19042.508.200927-1902.20h2_release_svc_refresh_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_en-us.iso
-EVAL_WIN10_X64_CHECKSUM ?= 574F00380EAD9E4B53921C33BF348B5A2FA976FFAD1D5FA20466DDF7F0258964
+EVAL_WIN10_1809_X64 ?= https://opendirectory.luzea.de/Microsoft%20Evaluation%20Center/17763.1_rs5_release_180914-1434/17763.1.180914-1434.rs5_release_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_en-us.iso
+EVAL_WIN10_1809_X64_CHECKSUM ?= a37718a13ecff4e8497e8feef50e4c91348e97c6bfe93474e364c9d03ad381a2
+EVAL_WIN10_20H2_X64 ?= https://software-download.microsoft.com/download/pr/19042.508.200927-1902.20h2_release_svc_refresh_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_en-us.iso
+EVAL_WIN10_20H2_X64_CHECKSUM ?= 574F00380EAD9E4B53921C33BF348B5A2FA976FFAD1D5FA20466DDF7F0258964
+EVAL_WIN10_21H1_X64 ?= https://software-download.microsoft.com/download/sg/19043.928.210409-1212.21h1_release_svc_refresh_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_en-us.iso
+EVAL_WIN10_21H1_X64_CHECKSUM ?= sha256:026607e7aa7ff80441045d8830556bf8899062ca9b3c543702f112dd6ffe6078
+EVAL_WIN10_21H2_X64 ?= https://software-download.microsoft.com/download/sg/444969d5-f34g-4e03-ac9d-1f9786c69161/19044.1288.211006-0501.21h2_release_svc_refresh_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_en-us.iso
+EVAL_WIN10_21H2_X64_CHECKSUM ?= sha256:69efac1df9ec8066341d8c9b62297ddece0e6b805533fdb6dd66bc8034fba27a
+EVAL_WIN10_22H2_X64 ?=
+EVAL_WIN10_22H2_X64_CHECKSUM ?= changeme
 EVAL_WIN10_X86 ?= https://software-download.microsoft.com/download/pr/19042.508.200927-1902.20h2_release_svc_refresh_CLIENTENTERPRISEEVAL_OEMRET_x86FRE_en-us.iso
 EVAL_WIN10_X86_CHECKSUM ?= 5F28F9C7BFCE3307E8DAF5F5A7FBEABB9008776859F828A0348B5F0F46A590D9
 
@@ -406,6 +414,8 @@ test-win2016-cygwin: test-win2016-standard-cygwin
 
 eval: eval-winrm eval-openssh
 
+eval-win10x64-enterprise: eval-win10x64-21H2-enterprise eval-win10x64-21H1-enterprise eval-win10x64-20H2-enterprise eval-win10x64-1809-enterprise
+
 eval-winrm: eval-win2012r2-datacenter eval-win2008r2-datacenter eval-win81x64-enterprise eval-win7x64-enterprise eval-win10x64-enterprise
 
 eval-openssh: eval-win2012r2-datacenter-ssh eval-win2008r2-datacenter-ssh eval-win81x64-enterprise-ssh eval-win7x64-enterprise-ssh eval-win10x64-enterprise-ssh
@@ -539,7 +549,10 @@ $(eval $(call BUILDBOX,eval-win81x86-enterprise,$(EVAL_WIN81_X86),$(EVAL_WIN81_X
 
 $(eval $(call BUILDBOX,eval-win8x64-enterprise,$(EVAL_WIN8_X64),$(EVAL_WIN8_X64_CHECKSUM)))
 
-$(eval $(call BUILDBOX,eval-win10x64-enterprise,$(EVAL_WIN10_X64),$(EVAL_WIN10_X64_CHECKSUM)))
+$(eval $(call BUILDBOX,eval-win10x64-1809-enterprise,$(EVAL_WIN10_1809_X64),$(EVAL_WIN10_1809_X64_CHECKSUM)))
+$(eval $(call BUILDBOX,eval-win10x64-20H2-enterprise,$(EVAL_WIN10_20H2_X64),$(EVAL_WIN10_20H2_X64_CHECKSUM)))
+$(eval $(call BUILDBOX,eval-win10x64-21H1-enterprise,$(EVAL_WIN10_21H1_X64),$(EVAL_WIN10_21H1_X64_CHECKSUM)))
+$(eval $(call BUILDBOX,eval-win10x64-21H2-enterprise,$(EVAL_WIN10_21H2_X64),$(EVAL_WIN10_21H2_X64_CHECKSUM)))
 
 $(eval $(call BUILDBOX,eval-win10x86-enterprise,$(EVAL_WIN10_X86),$(EVAL_WIN10_X86_CHECKSUM)))
 
