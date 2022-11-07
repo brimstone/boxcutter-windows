@@ -32,6 +32,11 @@ EVAL_WIN10_22H2_X64_CHECKSUM ?= changeme
 EVAL_WIN10_X86 ?= https://software-download.microsoft.com/download/pr/19042.508.200927-1902.20h2_release_svc_refresh_CLIENTENTERPRISEEVAL_OEMRET_x86FRE_en-us.iso
 EVAL_WIN10_X86_CHECKSUM ?= 5F28F9C7BFCE3307E8DAF5F5A7FBEABB9008776859F828A0348B5F0F46A590D9
 
+EVAL_WIN11_21H2_X64 ?= https://software-download.microsoft.com/download/sg/22000.194.210913-1444.co_release_svc_refresh_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_en-us.iso
+EVAL_WIN11_21H2_X64_CHECKSUM ?= sha256:e8b1d2a1a85a09b4bf6154084a8be8e3c814894a15a7bcf3e8e63fcfa9a528cb
+EVAL_WIN11_22H2_X64 ?= https://software-static.download.prss.microsoft.com/dbazure/988969d5-f34g-4e03-ac9d-1f9786c66749/22621.382.220806-0833.ni_release_svc_refresh_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_en-us.iso
+EVAL_WIN11_22H2_X64_CHECKSUM ?= sha256:31742751015EED1C0197E342E18C64EB
+
 EVAL_WIN2016_X64 ?= https://software-download.microsoft.com/download/pr/Windows_Server_2016_Datacenter_EVAL_en-us_14393_refresh.ISO
 EVAL_WIN2016_X64_CHECKSUM ?= 772700802951b36c8cb26a61c040b9a8dc3816a3
 
