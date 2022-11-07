@@ -93,6 +93,7 @@ ifndef CM_VERSION
 	endif
 endif
 
+CLOUD_TOKEN ?=
 BOX_VERSION ?= $(shell cat VERSION)
 UPDATE ?= false
 GENERALIZE ?= false
@@ -124,6 +125,9 @@ ifdef CM_OPTIONS
 endif
 ifdef CM_VERSION
 	PACKER_VARS += -var 'cm_version=$(CM_VERSION)'
+endif
+ifdef CLOUD_TOKEN
+	PACKER_VARS += -var 'cloud_token=$(CLOUD_TOKEN)'
 endif
 ON_ERROR ?= cleanup
 PACKER ?= packer
