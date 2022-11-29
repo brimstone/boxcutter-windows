@@ -94,7 +94,7 @@ ifndef CM_VERSION
 endif
 
 CLOUD_TOKEN ?=
-BOX_VERSION ?= $(shell cat VERSION)
+BOX_VERSION ?= $(shell date +%Y.%m.%d)
 UPDATE ?= false
 GENERALIZE ?= false
 HEADLESS ?= false
