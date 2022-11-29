@@ -50,39 +50,6 @@ EVAL_WIN2022_X64_CHECKSUM ?= sha256:4f1457c4fe14ce48c9b2324924f33ca4f0470475e6da
 EVAL_WIN2012_X64 ?= http://download.microsoft.com/download/6/D/A/6DAB58BA-F939-451D-9101-7DE07DC09C03/9200.16384.WIN8_RTM.120725-1247_X64FRE_SERVER_EVAL_EN-US-HRM_SSS_X64FREE_EN-US_DV5.ISO
 EVAL_WIN2012_X64_CHECKSUM ?= 922b365c3360ce630f6a4b4f2f3c79e66165c0fb
 
-WIN2008R2_X64 ?= iso/en_windows_server_2008_r2_with_sp1_vl_build_x64_dvd_617403.iso
-WIN2008R2_X64_CHECKSUM ?= 7e7e9425041b3328ccf723a0855c2bc4f462ec57
-WIN2012_X64 ?= iso/en_windows_server_2012_x64_dvd_915478.iso
-WIN2012_X64_CHECKSUM ?= d09e752b1ee480bc7e93dfa7d5c3a9b8aac477ba
-WIN2012R2_X64 ?= iso/en_windows_server_2012_r2_with_update_x64_dvd_6052708.iso
-WIN2012R2_X64_CHECKSUM ?= 865494e969704be1c4496d8614314361d025775e
-WIN2016_X64 ?= iso/en_windows_server_2016_x64_dvd_9718492.iso
-WIN2016_X64_CHECKSUM ?= f185197af68fae4f0e06510a4579fc511ba27616
-WIN7_X64_ENTERPRISE ?= iso/en_windows_7_enterprise_with_sp1_x64_dvd_u_677651.iso
-WIN7_X64_ENTERPRISE_CHECKSUM ?= a491f985dccfb5863f31b728dddbedb2ff4df8d1
-WIN7_X64_PRO ?= iso/en_windows_7_professional_with_sp1_vl_build_x64_dvd_u_677791.iso
-WIN7_X64_PRO_CHECKSUM ?= 708e0338d4e2f094dfeb860347c84a6ed9e91d0c
-WIN7_X86_ENTERPRISE ?= iso/en_windows_7_enterprise_with_sp1_x86_dvd_u_677710.iso
-WIN7_X86_ENTERPRISE_CHECKSUM ?= 4e0450ac73ab6f9f755eb422990cd9c7a1f3509c
-WIN7_X86_PRO ?= iso/en_windows_7_professional_with_sp1_vl_build_x86_dvd_u_677896.iso
-WIN7_X86_PRO_CHECKSUM ?= d5bd65e1b326d728f4fd146878ee0d9a3da85075
-WIN8_X64_ENTERPRISE ?= iso/en_windows_8_enterprise_x64_dvd_917522.iso
-WIN8_X64_ENTERPRISE_CHECKSUM ?= 4eadfe83e736621234c63e8465986f0af6aa3c82
-WIN8_X86_ENTERPRISE ?= iso/en_windows_8_enterprise_x86_dvd_917587.iso
-WIN8_X86_ENTERPRISE_CHECKSUM ?= fefce3e64fb9ec1cc7977165328890ccc9a10656
-WIN8_X64_PRO ?= iso/en_windows_8_x64_dvd_915440.iso
-WIN8_X64_PRO_CHECKSUM ?= 1ce53ad5f60419cf04a715cf3233f247e48beec4
-WIN8_X86_PRO ?= iso/en_windows_8_x86_dvd_915417.iso
-WIN8_X86_PRO_CHECKSUM ?= 22d680ec53336bee8a5b276a972ceba104787f62
-WIN81_X64_ENTERPRISE ?= iso/en_windows_8.1_enterprise_with_update_x64_dvd_4065178.iso
-WIN81_X64_ENTERPRISE_CHECKSUM ?= 8fb332a827998f807a1346bef55969c6519668b9
-WIN81_X86_ENTERPRISE ?= iso/en_windows_8.1_enterprise_with_update_x86_dvd_4065185.iso
-WIN81_X86_ENTERPRISE_CHECKSUM ?= fe43558b4708b4b786bc3286924813b0aad21106
-WIN81_X64_PRO ?= iso/en_windows_8.1_professional_vl_with_update_x64_dvd_4065194.iso
-WIN81_X64_PRO_CHECKSUM ?= e50a6f0f08e933f25a71fbc843827fe752ed0365
-WIN81_X86_PRO ?= iso/en_windows_8.1_professional_vl_with_update_x86_dvd_4065201.iso
-WIN81_X86_PRO_CHECKSUM ?= c2d6f5d06362b7cb17dfdaadfb848c760963b254
-
 # Possible values for CM: (nocm | chef | chefdk | chef-workstation | salt | puppet)
 CM ?= nocm
 # Possible values for CM_VERSION: (latest | x.y.z | x.y)
@@ -511,33 +478,13 @@ $(HYPERV_BOX_DIR)/$(PREFIX)$(1)-cygwin$(BOX_SUFFIX): $(PREFIX)$(1)-cygwin.json
 	$(PACKER) build -on-error=$(ON_ERROR) --only=$(HYPERV_BUILDER) $(PACKER_VARS) -var "iso_url=$(2)" -var "iso_checksum=$(3)" $(PREFIX)$(1)-cygwin.json
 endef
 
-$(eval $(call BUILDBOX,win2008r2-datacenter,$(WIN2008R2_X64),$(WIN2008R2_X64_CHECKSUM)))
-
 $(eval $(call BUILDBOX,eval-win2008r2-datacenter,$(EVAL_WIN2008R2_X64),$(EVAL_WIN2008R2_X64_CHECKSUM)))
-
-$(eval $(call BUILDBOX,win2008r2-enterprise,$(WIN2008R2_X64),$(WIN2008R2_X64_CHECKSUM)))
-
-$(eval $(call BUILDBOX,win2008r2-standard,$(WIN2008R2_X64),$(WIN2008R2_X64_CHECKSUM)))
 
 $(eval $(call BUILDBOX,eval-win2008r2-standard,$(EVAL_WIN2008R2_X64),$(EVAL_WIN2008R2_X64_CHECKSUM)))
 
-$(eval $(call BUILDBOX,win2008r2-web,$(WIN2008R2_X64),$(WIN2008R2_X64_CHECKSUM)))
-
-$(eval $(call BUILDBOX,win2012-datacenter,$(WIN2012_X64),$(WIN2012_X64_CHECKSUM)))
-
-$(eval $(call BUILDBOX,win2012-standard,$(WIN2012_X64),$(WIN2012_X64_CHECKSUM)))
-
-$(eval $(call BUILDBOX,win2012r2-datacenter,$(WIN2012R2_X64),$(WIN2012R2_X64_CHECKSUM)))
-
 $(eval $(call BUILDBOX,eval-win2012r2-datacenter,$(EVAL_WIN2012R2_X64),$(EVAL_WIN2012R2_X64_CHECKSUM)))
 
-$(eval $(call BUILDBOX,win2012r2-standard,$(WIN2012R2_X64),$(WIN2012R2_X64_CHECKSUM)))
-
 $(eval $(call BUILDBOX,eval-win2012r2-standard,$(EVAL_WIN2012R2_X64),$(EVAL_WIN2012R2_X64_CHECKSUM)))
-
-$(eval $(call BUILDBOX,win2012r2-standardcore,$(WIN2012R2_X64),$(WIN2012R2_X64_CHECKSUM)))
-
-$(eval $(call BUILDBOX,win2016-standard,$(WIN2016_X64),$(WIN2016_X64_CHECKSUM)))
 
 $(eval $(call BUILDBOX,eval-win2016-standard,$(EVAL_WIN2016_X64),$(EVAL_WIN2016_X64_CHECKSUM)))
 
@@ -545,33 +492,9 @@ $(eval $(call BUILDBOX,eval-win2019-standard,$(EVAL_WIN2019_X64),$(EVAL_WIN2019_
 
 $(eval $(call BUILDBOX,eval-win2022-standard,$(EVAL_WIN2022_X64),$(EVAL_WIN2022_X64_CHECKSUM)))
 
-$(eval $(call BUILDBOX,win7x64-enterprise,$(WIN7_X64_ENTERPRISE),$(WIN7_X64_ENTERPRISE_CHECKSUM)))
-
 $(eval $(call BUILDBOX,eval-win7x64-enterprise,$(EVAL_WIN7_X64),$(EVAL_WIN7_X64_CHECKSUM)))
 
-$(eval $(call BUILDBOX,win7x86-enterprise,$(WIN7_X86_ENTERPRISE),$(WIN7_X86_ENTERPRISE_CHECKSUM)))
-
-$(eval $(call BUILDBOX,win7x64-pro,$(WIN7_X64_PRO),$(WIN7_X64_PRO_CHECKSUM)))
-
-$(eval $(call BUILDBOX,win7x86-pro,$(WIN7_X86_PRO),$(WIN7_X86_PRO_CHECKSUM)))
-
-$(eval $(call BUILDBOX,win8x64-enterprise,$(WIN8_X64_ENTERPRISE),$(WIN8_X64_ENTERPRISE_CHECKSUM)))
-
-$(eval $(call BUILDBOX,win8x64-pro,$(WIN8_X64_PRO),$(WIN8_X64_PRO_CHECKSUM)))
-
-$(eval $(call BUILDBOX,win8x86-enterprise,$(WIN8_X86_ENTERPRISE),$(WIN8_X86_ENTERPRISE_CHECKSUM)))
-
-$(eval $(call BUILDBOX,win8x86-pro,$(WIN8_X86_PRO),$(WIN8_X86_PRO_CHECKSUM)))
-
-$(eval $(call BUILDBOX,win81x64-enterprise,$(WIN81_X64_ENTERPRISE),$(WIN81_X64_ENTERPRISE_CHECKSUM)))
-
 $(eval $(call BUILDBOX,eval-win81x64-enterprise,$(EVAL_WIN81_X64),$(EVAL_WIN81_X64_CHECKSUM)))
-
-$(eval $(call BUILDBOX,win81x86-enterprise,$(WIN81_X86_ENTERPRISE),$(WIN81_X86_ENTERPRISE_CHECKSUM)))
-
-$(eval $(call BUILDBOX,win81x64-pro,$(WIN81_X64_PRO),$(WIN81_X64_PRO_CHECKSUM)))
-
-$(eval $(call BUILDBOX,win81x86-pro,$(WIN81_X86_PRO),$(WIN81_X86_PRO_CHECKSUM)))
 
 $(eval $(call BUILDBOX,eval-win7x86-enterprise,$(EVAL_WIN7_X86),$(EVAL_WIN7_X86_CHECKSUM)))
 
@@ -586,12 +509,6 @@ $(eval $(call BUILDBOX,eval-win10x64-21H2-enterprise,$(EVAL_WIN10_21H2_X64),$(EV
 
 $(eval $(call BUILDBOX,eval-win10x86-enterprise,$(EVAL_WIN10_X86),$(EVAL_WIN10_X86_CHECKSUM)))
 
-# @todo:
-#$(eval $(call BUILDBOX,eval-win2012-standard,$(EVAL_WIN2012_X64),$(EVAL_WIN2012_X64_CHECKSUM)))
-
-# can't find powershell:
-#$(eval $(call BUILDBOX,win2008r2-standardcore,$(WIN2008R2_X64),$(WIN2008R2_X64_CHECKSUM)))
-#$(eval $(call BUILDBOX,win2008r2-standardcore-cygwin,$(WIN2008R2_X64),$(WIN2008R2_X64_CHECKSUM)))
 
 # Generic rule - not used currently
 #$(VMWARE_BOX_DIR)/%$(BOX_SUFFIX): %.json
