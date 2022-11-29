@@ -229,7 +229,7 @@
     "cpus": "2",
     "memory": "2048",
     "disk_size": "40960",
-    "hw_version": "7",
+    "hw_version": "9",
     "iso_url": "https://software-download.microsoft.com/download/sg/17763.253.190108-0006.rs5_release_svc_refresh_SERVER_EVAL_x64FRE_en-us.iso",
     "iso_checksum": "57faf4a2ea4484cfdf5e964c539313c061c4d9cac474e723d60405f2ea02d570",
     "guest_additions_url": "",

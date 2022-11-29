@@ -206,7 +206,7 @@
     "cpus": "2",
     "memory": "2048",
     "disk_size": "40960",
-    "hw_version": "7",
+    "hw_version": "9",
     "iso_url": "https://software-download.microsoft.com/download/pr/19042.508.200927-1902.20h2_release_svc_refresh_CLIENTENTERPRISEEVAL_OEMRET_x86FRE_en-us.iso",
     "iso_checksum": "5F28F9C7BFCE3307E8DAF5F5A7FBEABB9008776859F828A0348B5F0F46A590D9",
     "guest_additions_url": "",
